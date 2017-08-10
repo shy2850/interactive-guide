@@ -22,7 +22,7 @@ module.exports = {
     },
     bundles: [
         {
-            test: /^src\/(?!(require|index)\.js)[\w\-]*\.js$/,
+            test: /^src\/(?!(require|index|codemirror)).*$/,
             dist: 'src/index.js'
         }
     ],

@@ -1,6 +1,6 @@
 import React from '../react'
 import CodeMirror from '../codemirror/lib/codemirror'
-import '../codemirror/mode/javascript/javascript'
+import '../codemirror/mode/shell/shell'
 
 export default class Editor extends React.Component {
     constructor (props) {
@@ -12,10 +12,11 @@ export default class Editor extends React.Component {
         const {
             mode
         } = nextProps
-        require([`../codemirror/mode/${mode}/${mode}`])
     }
     componentDidMount () {
-        this.codeMirror = CodeMirror(this.refs.holder, this.props)
+        this.codeMirror = CodeMirror(this.refs.holder, Object.assign({
+            mode: 'shell'
+        }, this.props))
     }
     render () {
         return <div ref="holder"/>

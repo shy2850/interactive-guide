@@ -1,6 +1,6 @@
 {
   "name": "interactive-guide",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "study guide with interactive",
   "main": "index.html",
   "author": "shy2850",
@@ -45,6 +45,6 @@
     "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-standard": "^3.0.1",
     "f2e-middle-template": "^0.2.0",
-    "f2e-server": "^2.4.1"
+    "f2e-server": "^2.4.2"
   }
 }
