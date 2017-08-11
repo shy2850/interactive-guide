@@ -26,6 +26,7 @@
     "bootstrap": "^3.3.7",
     "codemirror": "^5.28.0",
     "immutable": "^3.8.1",
+    "jquery.terminal": "^1.6.0",
     "marked": "^0.3.6",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

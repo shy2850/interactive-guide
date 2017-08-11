@@ -1,2 +1,18 @@
 @import (inline) "./node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import (inline) "./node_modules/codemirror/lib/codemirror.css";
+@import (inline) "./node_modules/jquery.terminal/css/jquery.terminal.css";
+
+html, body, #app {
+    display: block;
+    min-height: 100%;
+}
+.editor-app {
+    width: 80%;
+    height: 480px;
+    margin: 30px auto;
+    > * {
+        width: 50%;
+        float: left;
+        height: 100%;
+    }
+}

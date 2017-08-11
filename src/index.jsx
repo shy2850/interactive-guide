@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import {Provider} from 'react-redux'
 import reducer from './reducer/index'
 import {init} from './reducer/shell'
-import Editor from './containers/ShellEditor'
+import EditorApp from './components/EditorApp'
 const store = compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
@@ -14,7 +14,7 @@ store.dispatch(init())
 
 ReactDOM.render(
     <Provider store={store}>
-        <Editor/>
+        <EditorApp/>
     </Provider>,
     document.getElementById('app')
 )

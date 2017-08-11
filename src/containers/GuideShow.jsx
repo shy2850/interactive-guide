@@ -1,16 +1,15 @@
 import { connect } from '../react-redux'
-import ShellEditor from '../components/ShellEditor'
+import GuideShow from '../components/GuideShow'
 import { execCmd } from '../reducer/shell'
 
 const mapStateToProps = (state) => {
+    const index = state.getIn(['index'])
     return {
+        guide: state.getIn(['steps', index, 'guide'])
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        execCmd: (cmd, editor) => {
-            dispatch(execCmd(cmd, editor))
-        }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ShellEditor)
+export default connect(mapStateToProps, mapDispatchToProps)(GuideShow)

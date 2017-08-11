@@ -5,7 +5,7 @@ const GUIDE_SHELL_ERROR = 'GUIDE_SHELL_ERROR'
 
 const steps = [
     {
-        guide: '接下来我们开始git的学习：  \n1.输入 `git status` 检测需要更新的文件状态  ',
+        guide: '### 接下来我们开始git的学习：  \n1. 输入 `git status` 检测需要更新的文件状态  ',
         console: ''
     }, {
         test: 'git status',
@@ -20,15 +20,15 @@ const steps = [
         console: 'add changes OK! \n'
     }, {
         test: 'git commit -m ["\'][^"\']+["\']',
-        guide: '\n4.',
-        console: 'Congratulations! \n'
+        guide: '\n4. Congratulations! ',
+        console: 'Completed. \n retry? (any key)'
     }
 ]
 
 export default (state, action) => {
     switch (action.type) {
     case GUIDE_SHELL_INIT:
-        return state.mergeDeep({steps: action.payload || steps})
+        return state.mergeDeep({steps: action.payload || steps, index: 0})
     case GUIDE_SHELL_NEXT:
         return state.setIn(['error'], false).updateIn(['index'], index => index + 1)
     case GUIDE_SHELL_ERROR:
@@ -39,13 +39,17 @@ export default (state, action) => {
 export const init = createAction(GUIDE_SHELL_INIT)
 export const next = createAction(GUIDE_SHELL_NEXT)
 export const error = createAction(GUIDE_SHELL_ERROR)
-export const execCmd = cmd => (dispatch, getState) => {
+export const execCmd = (cmd, {echo, clear}) => (dispatch, getState) => {
     const state = getState()
     const index = state.getIn(['index'])
     const test = state.getIn(['steps', index + 1, 'test'])
-    if (test && new RegExp(test).test(cmd)) {
+    if (!state.getIn(['steps', index + 1])) {
+        clear()
+        dispatch(init())
+    } else if (test && new RegExp(test).test(cmd)) {
+        echo(state.getIn(['steps', index + 1, 'console']) || '')
         dispatch(next())
     } else {
-        dispatch(error())
+        echo('Invalid Command!')
     }
 }
