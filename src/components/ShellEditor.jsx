@@ -6,17 +6,47 @@ export default class Editor extends React.Component {
     constructor (props) {
         super(props)
         this.state = {}
-        this.codeMirror = null
+        this.editor = null
     }
     componentWillReceiveProps (nextProps) {
         const {
-            mode
+            value,
+            error
         } = nextProps
+        const {
+            editor,
+            setState
+        } = this
+        if (error) {
+            alert('wrong cmd!')
+        } else {
+            editor && editor.replaceSelection(value)
+        }
     }
     componentDidMount () {
-        this.codeMirror = CodeMirror(this.refs.holder, Object.assign({
-            mode: 'shell'
-        }, this.props))
+        const t = this
+        const {
+            value,
+            execCmd
+        } = t.props
+        let editor = CodeMirror(t.refs.holder, {
+            mode: 'shell',
+            value
+        })
+        editor.on('paste', (editor, e) => {
+            e.preventDefault()
+        })
+        editor.on('keydown', (editor, e) => {
+            editor.replaceSelection('')
+        })
+        editor.on('keyup', (editor, e) => {
+            switch (e.keyCode) {
+            case 13:
+                execCmd(editor.getLine(editor.lastLine() - 1))
+                break
+            }
+        })
+        t.editor = editor
     }
     render () {
         return <div ref="holder"/>
