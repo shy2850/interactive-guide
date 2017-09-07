@@ -14,6 +14,11 @@ module.exports = {
         {
             test: /(\.html|require\.js)$/,
             middleware: 'template'
+        },
+        {
+            url: 'http://47.93.218.133',
+            test: /^(?!src|index})/,
+            middleware: 'proxy'
         }
     ],
     buildFilter: (pathname, data) => {
