@@ -13,7 +13,7 @@ export default class Editor extends React.Component {
         editor.terminal(function (command) {
             execCmd(command, editor)
         }, {
-            greetings: '\n ** Git-bash Study **\n',
+            greetings: '\n ** Git-bash 1 Study **\n',
             prompt: '> '
         })
     }
