@@ -16,7 +16,7 @@ export default class Editor extends React.Component {
             theme = 'monokai',
             keyMap = 'sublime',
             setEditor,
-            init
+            step
         } = this.props
         this.editor = CodeMirror(this.refs.editor, {
             lineNumbers: true,
@@ -26,24 +26,29 @@ export default class Editor extends React.Component {
         })
         this.editor.setSize('100%', '100%')
         setEditor && setEditor(this.editor)
-        init()
+        step && step()
+    }
+    componentWillReceiveProps (nextProps) {
+        const {step} = nextProps
+        if (step) {
+            step()
+        }
     }
     render () {
         const {
-            onEnd,
+            onPrev,
+            onNext,
             codeId,
             order = 1,
             lessonId = false,
             completed,
             mode = 'python'
         } = this.props
-        return <div className={`${mode}-editor`} ref="editor">
+        return <div style={{height: '100%'}}>
+            <div ref="editor" className={`${mode}-editor`} ></div>
             <ButtonGroup className="fixed-right-top">
-                {order > 1 && <Button><Link to={`/codes/${codeId}/${order - 1}`}>上一步</Link></Button>}
-                {completed
-                    ? <Button onClick={onEnd}>完成</Button>
-                    : <Button><Link to={`/codes/${codeId}/${order + 1}`}>下一步</Link></Button>
-                }
+                {order > 1 && <Button onClick={onPrev}>上一步</Button>}
+                <Button onClick={onNext}>{completed ? '完成' : '下一步'}</Button>
                 {lessonId && <Button><Link to={`/lessons/${lessonId}/codes`}>返回</Link></Button>}
             </ButtonGroup>
         </div>

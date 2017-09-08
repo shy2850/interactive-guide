@@ -1,6 +1,6 @@
 @import (inline) "./node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import (inline) "./node_modules/codemirror/lib/codemirror.css";
-@import (inline) "./node_modules/jquery.terminal/css/jquery.terminal.css";
+@import (inline) "./node_modules/codemirror/theme/monokai.css";
 
 html, body, #app {
     display: block;
@@ -10,5 +10,12 @@ html, body, #app {
     margin-top: 30px;
     height: 640px;
 }
+.fixed-right-top {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 2;
+}
 
-@import "./less/Grid.less";
+@import "less/Grid.less";
+@import "less/python-editor.less";

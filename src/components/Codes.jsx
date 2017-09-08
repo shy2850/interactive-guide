@@ -20,7 +20,7 @@ export default class extends React.Component {
             <ListGroup>
                 {codes.map((item, index) => <ListGroupItem key={index + ''}>
                     <Row>
-                        <Col xs={4}><Link to={`/codes/${lessonId}/${item.id}`}>{index + 1}. {item.name}</Link></Col>
+                        <Col xs={4}><Link to={`/codes/${item.id}/1`}>{index + 1}. {item.name}</Link></Col>
                         <Col xs={8}>{item.description}</Col>
                     </Row>
                 </ListGroupItem>)}

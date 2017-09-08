@@ -1,7 +1,8 @@
 import { connect } from '../react-redux'
 import PythonEditor from '../components/PythonEditor'
-import { setEditor, end, step } from '../reducer/code'
+import { setEditor, prev, next, step } from '../reducer/code'
 
+let order
 const mapStateToProps = (state, props) => {
     return {
         completed: state.getIn(['step', 'completed']),
@@ -9,16 +10,23 @@ const mapStateToProps = (state, props) => {
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
+    let props = {
         setEditor: (editor) => {
             dispatch(setEditor(editor))
         },
-        init: () => {
-            dispatch(step(ownProps.codeId, ownProps.step))
+        onPrev: () => {
+            dispatch(prev())
         },
-        onEnd: () => {
-            dispatch(end())
+        onNext: () => {
+            dispatch(next())
         }
     }
+    if (order !== ownProps.order) {
+        order = ownProps.order
+        props.step = () => {
+            dispatch(step(ownProps.codeId, ownProps.order))
+        }
+    }
+    return props
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PythonEditor)

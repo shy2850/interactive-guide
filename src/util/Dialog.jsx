@@ -26,12 +26,13 @@ class Dialog extends Component {
     render () {
         const {visible} = this.state
         const {
-            info
+            info,
+            title = '警告'
         } = this.props
 
         return <Modal show={visible} onHide={this.close}>
             <Modal.Header closeButton>
-                <Modal.Title>警告</Modal.Title>
+                <Modal.Title>{title}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {info}
