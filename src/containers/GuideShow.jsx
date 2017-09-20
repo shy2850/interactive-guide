@@ -1,6 +1,6 @@
 import { connect } from '../react-redux'
 import GuideShow from '../components/GuideShow'
-import { execCmd } from '../reducer/shell'
+import { step } from '../reducer/code'
 
 const mapStateToProps = (state, props) => {
     const {order} = props
@@ -10,6 +10,9 @@ const mapStateToProps = (state, props) => {
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
+        init: () => {
+            dispatch(step(ownProps.codeId, ownProps.order))
+        }
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(GuideShow)

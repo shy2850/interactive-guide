@@ -7,17 +7,22 @@ export default class Editor extends React.Component {
         super(props)
         this.state = {}
     }
-    init (dom) {
-        const { execCmd } = this.props
-        let editor = $(dom)
-        editor.terminal(function (command) {
-            execCmd(command, editor)
+    componentDidMount () {
+        const { setTerminal } = this.props
+        let editor = $(this.refs.holder)
+        editor.terminal(function (cmd) {
+            switch (cmd) {
+            case 'clear': break
+            default: return '使用 `clear` 命令 清除控制台'
+            }
         }, {
-            greetings: '\n ** Git-bash 1 Study **\n',
-            prompt: '> '
+            greetings: '',
+            enabled: false,
+            prompt: ' '
         })
+        setTerminal && setTerminal(editor)
     }
     render () {
-        return <div className="shell-editor" ref={this.init.bind(this)}/>
+        return <div className="shell-editor" ref="holder"/>
     }
 }

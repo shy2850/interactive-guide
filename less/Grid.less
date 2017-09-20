@@ -3,7 +3,8 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border: 1px solid #3a0;
+    background: #fff;
+    box-shadow: 0 0 20px #d2d2d2;
     > div {
         position: absolute;
         height: 100%;
@@ -12,9 +13,6 @@
         top: 0;
         z-index: 1;
         box-sizing: border-box;
-        > div {
-            padding: 8px;
-        }
     }
     .grid-handle {
         position: absolute;
@@ -22,20 +20,19 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background: #3a0;
     }
     > .grid-ceil-horizontal {
         > .grid-handle {
             cursor: col-resize;
-            width: 3px;
-            margin-left: -3px;
+            width: 4px;
+            margin-left: -2px;
         }
     }
     > .grid-ceil-vertical {
         > .grid-handle {
             cursor: row-resize;
-            height: 3px;
-            margin-top: -3px;
+            height: 4px;
+            margin-top: -2px;
         }
     }
 }

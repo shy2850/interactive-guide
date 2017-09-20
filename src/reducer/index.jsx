@@ -9,6 +9,6 @@ let initState = new Map({
 export default (state = initState, action) => (
     CodeReducer(state, action) ||
     LessonReducer(state, action) ||
-    // ShellReducer(state, action) ||
+    ShellReducer(state, action) ||
     state
 )

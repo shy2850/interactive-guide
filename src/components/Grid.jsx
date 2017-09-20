@@ -52,7 +52,7 @@ export default class Grid extends React.Component {
             onMouseMove={this.onMouseMove}
         >
             {columns.map((w, i) => {
-                let el = <div key={i + ''} className={`grid-ceil-${axis}`} tabIndex="-1" style={{
+                let el = <div key={i + ''} className={`grid-ceil-${axis}`} style={{
                     [vertical ? 'height' : 'width']: 100 * w + '%',
                     [vertical ? 'top' : 'left']: 100 * sum + '%'
                 }}>

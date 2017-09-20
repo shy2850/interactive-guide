@@ -1,6 +1,6 @@
 import { connect } from '../react-redux'
 import ShellEditor from '../components/ShellEditor'
-import { execCmd } from '../reducer/shell'
+import { setTerminal } from '../reducer/shell'
 
 const mapStateToProps = (state) => {
     return {
@@ -8,8 +8,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        execCmd: (cmd, editor) => {
-            dispatch(execCmd(cmd, editor))
+        setTerminal: (editor) => {
+            dispatch(setTerminal(editor))
         }
     }
 }

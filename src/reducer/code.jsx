@@ -1,6 +1,6 @@
 import { createAction } from '../redux-actions'
 import { alert } from '../util/Dialog'
-import { code } from './api'
+import { code, section } from './api'
 import { hashHistory } from 'react-router'
 
 const CODES_INIT = 'CODES_INIT'
@@ -32,14 +32,12 @@ export const list = (lessonId) => (dispatch, getState) => {
     })
 }
 
+let stepDebounce
 export const step = (codeId, order) => (dispatch, getState) => {
-    const editor = getState().getIn(['editor'])
-    if (editor) {
-        // editor.setValue('')
-    }
-    code.step(codeId, order).then(res => {
+    clearTimeout(stepDebounce)
+    stepDebounce = setTimeout(() => code.step(codeId, order).then(res => {
         dispatch(createAction(CODES_STEP)(res.data))
-    })
+    }), 300)
 }
 export const prev = () => (dispatch, getState) => {
     const state = getState()
@@ -51,20 +49,39 @@ const sumBlank = str => str.replace(/[\s\t\n]+/g, ' ')
 const compare = (a, b) => sumBlank(a) === sumBlank(b)
 export const next = () => (dispatch, getState) => {
     const state = getState()
-    const code = state.getIn(['step', 'code'])
+    const stepCode = state.getIn(['step', 'code'])
     const codeId = state.getIn(['step', 'codeId'])
+    const sectionId = state.getIn(['step', 'id'])
     const order = state.getIn(['step', 'order'])
     const completed = state.getIn(['step', 'completed'])
     const editor = state.getIn(['editor'])
-    const v = editor.getValue()
-    if (compare(v, code)) {
-        if (order && !completed) {
-            hashHistory.push(`/codes/${codeId}/${order + 1}`)
-        } else {
-            alert('Congratulations!', {title: '恭喜'})
-        }
-    } else {
-        alert('Wrong code!')
+    const terminal = state.getIn(['terminal'])
+    const code = editor.getValue()
+
+    if (!code.trim()) {
+        alert('code 不能为空!')
+        return
     }
+
+    section.validate(sectionId, code).then(res => {
+        if (res.error) {
+            terminal.error(res.message)
+        } else {
+            if (order && !completed) {
+                hashHistory.push(`/codes/${codeId}/${order + 1}`)
+            } else {
+                terminal.echo(res.data)
+            }
+        }
+    })
+    // if (compare(stepCode, code)) {
+    //     if (order && !completed) {
+    //         hashHistory.push(`/codes/${codeId}/${order + 1}`)
+    //     } else {
+    //         alert('Congratulations!', {title: '恭喜'})
+    //     }
+    // } else {
+    //     alert('Wrong code!')
+    // }
 }
 export const setEditor = createAction(CODES_SET_EDITOR)
