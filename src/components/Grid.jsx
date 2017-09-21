@@ -8,6 +8,14 @@ export default class Grid extends React.Component {
             columns: props.columns || [0.5, 0.5]
         }
     }
+    componentWillReceiveProps (nextProps) {
+        const { vertical } = nextProps
+        if (vertical !== this.state.vertical) {
+            this.setState({
+                vertical
+            })
+        }
+    }
     onMouseDown = (e, i) => {
         const { columns } = this.state
         this.client = {

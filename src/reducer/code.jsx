@@ -64,6 +64,7 @@ export const next = () => (dispatch, getState) => {
     }
 
     section.validate(sectionId, code).then(res => {
+        terminal.clear()
         if (res.error) {
             terminal.error(res.message)
         } else {
