@@ -31,6 +31,10 @@ module.exports = {
         let nameFilter = !pathname || /^(src|index|less)/.test(pathname)
         return nameFilter
     },
+    shouldUseMinify: (pathname, data) => {
+        // 单文件超过20K 不进行压缩
+        return data.toString().length < 20 * 1024
+    },
     bundles: [
         {
             test: /^src\/(?!(require|index|codemirror)).*$/,
